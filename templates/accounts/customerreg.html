@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %} | Register Account{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- <link rel="stylesheet" href="{% static 'css/register.css' %}" /> -->
+<style>
+  #register{
+    background-color: #fff;
+    position: relative;
+    height: 100vh;
+    background-image: url("{% static 'images/hm2.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    padding-top: 10%;
+    overflow: hidden;
+  }
+
+  /* Add some padding to the top and bottom of the section */
+  #register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0 20px 0;
+  }
+  .row{
+    display: flex;
+  }
+  /* Center the form horizontally */
+  #register .container {
+    width: 100%;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(192, 187, 187, 0.452);
+  }
+
+  #register form{
+    width: 500px;
+    height: 100vh;
+    border: none;
+    background-color: transparent;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    top: 200px;
+    margin-top: 9%;
+  }
+.form-control {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 1px;
+    margin-left: 10px;
+
+}
+label{
+  margin-left: 10px;
+}
+.option{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+p{
+  margin-right: 30px;
+}
+h4{
+  text-align: center;
+}
+h4,input[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+input[type="submit"]:hover{
+  background-color: #0069d9;
+}
+
+</style>
+
+
+   
+<section id="register">
+  <div class="container">
+        <form action="{% url 'customer-signup' %}" method="POST" id="user-registration-form" >
+          {% csrf_token %}
+          <h4>Register</h4>
+
+          <!-- Alerts -->
+          {% include 'partials/alerts.html' %}
+          {{ form.as_p }}
+            <input type="submit" value="Register">
+            <div class="option">
+              <p>Already registered!</p>
+              <a href="{% url 'login' %}">Login Now</a><br>
+            </div>
+         </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

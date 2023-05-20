@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %} | Search Results{% endblock %}
+
+{% block content %}
+  <style>
+    #showcase-inner{
+      position: relative;
+      margin-top: 2.7rem;
+      height: fit-content;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* background-color: rgb(175, 173, 173); */
+      background-color: #0b4079;
+    }
+
+    #showcase-inner form{
+      position: relative;
+      width: 750px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      align-items: center;
+    }
+
+    #showcase-inner .row{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    #showcase-inner .row label{
+      font-weight: lighter;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    #showcase-inner .row input, #showcase-inner .row select{
+      border: none;
+      outline: none;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #showcase-inner #search-btn{
+      padding: 8px 20px;
+      border: none;
+      outline: none;
+      /* background: #3b3b3b; */
+      background: rgb(34, 165, 17);
+      color: #fff;
+      font-size: 16px;
+      border-radius: 4px;
+      width: 150px;
+      transition: .5s;
+    }
+
+    #showcase-inner #search-btn:hover{
+      cursor: pointer;
+      transform: scale(1.05);
+      background-color: rgb(19, 19, 19);
+    }
+
+    #listings .text-center{
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Poppins', 'Times New Roman', Times, serif;
+  }
+
+  #listings .container {
+    width: 100%;
+    padding: 0 20px 20px 20px;
+  }
+  
+  #listings .Listings {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    gap: 20px;
+    /* max-width: 800px; */
+    margin: auto;
+  }
+  
+  #listings .listing {
+    width: 32%;
+    margin-bottom: 30px;
+  }
+  
+  #listings .card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  #listings .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  #listings .card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  #listings .card-img-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  
+  #listings .card-img-overlay h2 {
+    margin: 0;
+  }
+  
+  #listings .badge {
+    font-size: 1.2rem;
+    font-weight: lighter;
+    color: #fff;
+  }
+  
+  #listings .card-body {
+    padding: 10px;
+  }
+  
+  #listings .listing-heading h4 {
+    margin: 0;
+  }
+  
+  #listings .listing-heading p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: light;
+    color: rgb(37, 36, 36);
+  }
+  
+  #listings .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  #listings .row p{
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  #listings .more-info-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: normal;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 5px;
+  }
+  
+  #listings .more-info-btn:hover {
+    background-color: #0069d9;
+  }
+
+  @media (max-width:600px) {
+    #showcase-inner{
+      height: fit-content;
+      padding: 0;
+      display: block;
+      background-color: #0b4079;
+    }
+
+    #showcase-inner form{
+      width: 100%;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      padding: 5px;
+    }
+
+    #showcase-inner .row label{
+      font-size: 12px;
+    }
+
+    #showcase-inner .row input, #showcase-inner .row select{
+      font-size: 12px;
+      padding: 5px;
+    }
+
+    #showcase-inner #search-btn{
+      padding: 4px 20px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    #listings .container {
+    width: 100%;
+    padding: 5px;
+
+  }
+  
+  #listings .Listings {
+    gap: 5px;
+  }
+  
+  #listings .listing {
+    width:49%;
+    margin-bottom: 10px;
+  }
+
+  #listings .card-img-top {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+
+  }
+
+  </style>
+
+    <section id="showcase-inner">
+      <div class="container">
+        <form action="{% url 'search' %}">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="sr-only">Keywords:</label>
+              <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)" 
+              value="{{ values.keywords }}">
+            </div>
+            <div class="col-md-4">
+              <label class="sr-only">Location:</label>
+              <input type="text" name="city" class="form-control" placeholder="location" value="{{ values.city }}">
+            </div>
+            <div class="col-md-4">
+              <label class="sr-only">County:</label>
+              <select name="state" class="form-control">
+                <option selected="true" disabled="disabled">County (All)</option>
+                  {% for key,value in state_choices.items %}
+                      <option value="{{ key }}" 
+                      {% if key == values.county %}
+                        selected
+                      {% endif %}
+                      >{{ value }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="sr-only">Bedrooms:</label>
+              <select name="bedrooms" class="form-control">
+                <option selected="true" disabled="disabled">Bedrooms (Any)</option>
+                  {% for key,value in bedroom_choices.items %}
+                      <option value="{{ key }}"
+                      {% if key == values.bedrooms %}
+                        selected
+                      {% endif %}
+                      >{{ value }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="sr-only">Price range:</label>
+              <select name="price" class="form-control">
+                <option selected="true" disabled="disabled">Max Price (All)</option>
+                  {% for key,value in price_choices.items %}
+                      <option value="{{ key }}"
+                      {% if key == values.price %}
+                        selected
+                      {% endif %}
+                      >{{ value }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+          </div>
+          <button id="search-btn" type="submit">Search</button>
+        </form>
+      </div>
+    </section>
+    
+      <!-- Listings -->
+      <section id="listings">
+        <div class="container">
+          <div class="row">
+              {% if propertys %}
+          {% for property in propertys %}
+          <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card listing-preview">
+                <img class="card-img-top" src="{{property.photo_main.url }}" alt="">
+                <div class="card-img-overlay">
+                  <h2>
+                    <span class="badge badge-secondary text-white">Ksh.{{ property.price | intcomma }}</span>
+                  </h2>
+                </div>
+                <div class="card-body">
+                  <div class="listing-heading text-center">
+                    <h4 class="text-primary">{{ property.title }}</h4>
+                    <p>{{ property.city }} {{ property.county }}</p>
+                  </div>
+                  <hr>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-6">Sqft: {{ property.sqft }}</div>
+                  </div>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-6">Bedrooms: {{ property.bedrooms }}</div>
+                    <div class="col-6">Bathrooms: {{ property.bathrooms }}</div>
+                  </div>
+                  <hr>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-12">{{ property.owner}}</div>
+                  </div>
+                  <div class="row text-secondary pb-2">
+                    <div class="col-6">{{ property.list_date | timesince }}</div>
+                  </div>
+                  <hr>
+                  <a href="{% url 'property' property.id %}" class="more-info-btn">More Info</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-md-12">
+            <p>No properties available</p>
+          </div>
+        {% endif %}  
+          </div>
+        </div>
+      </section>
+
+{% endblock %}

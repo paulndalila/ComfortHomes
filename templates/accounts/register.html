@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %} | Register Account{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- <link rel="stylesheet" href="{% static 'css/register.css' %}" /> -->
+<style>
+  #register{
+    background-color: #fff;
+    position: relative;
+    height: 100vh;
+    background-image: url("{% static 'images/im8.jpg' %}");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Add some padding to the top and bottom of the section */
+  #register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0 20px 0;
+  }
+  .row{
+    display: flex;
+  }
+  /* Center the form horizontally */
+  #register .container {
+    width: 100%;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(192, 187, 187, 0.452);
+  }
+
+  #register form{
+    width: 500px;
+    height: 100vh;
+    border: none;
+    background-color: transparent;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    top: 0;
+  }
+
+  #register .form-group{
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  /* Style the form header */
+  #register h4 {
+    margin-bottom: 30px;
+    background-color: #007bffed;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+  }
+  
+  /* Style the form labels */
+  #register label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    width: 30%;
+  }
+ 
+  
+  /* Style the form inputs */
+  #register input[type="text"],
+  #register input[type="email"],
+  #register input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    background-color: #f7f7f7;
+    border: none;
+    box-shadow: none;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  /* Style the form inputs on focus */
+  #register input[type="text"]:focus,
+  #register input[type="email"]:focus,
+  #register input[type="password"]:focus {
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style the form submit button */
+  #register input[type="submit"] {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: fit-content;
+    padding: 5px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  /* Style the form submit button on hover */
+  #register input[type="submit"]:hover {
+    background-color: #c82333;
+    cursor: pointer;
+  }
+
+  #register .form-group input{
+    border: 1px solid #ccc;
+    border-left: none;
+  }
+
+  footer {
+    position: absolute;
+    background-color: #222222c0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1em;
+    width: 100%;
+    height: 1cm;
+    bottom: 1px;
+  }
+
+  footer p{
+      font-size: 10px;
+  }
+  .check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  input[type=radio][name=account-type]:before {
+  content: "";
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  color: #007bff;
+  margin: 0;
+  border-radius: 50%;
+  border: 2px solid #333;
+}
+
+input[type=radio][name=account-type]:checked:before {
+  background-color: rgb(198, 34, 204);
+}
+
+label [for=owner] {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  
+}
+span{
+  color:black;
+  font-size: 20px;
+  margin-left: 16px;
+}
+
+</style>
+
+
+   
+<section id="register">
+  <div class="container">
+        <form action="{% url 'register' %}" method="POST" id="user-registration-form" style="display: none;">
+          {% csrf_token %}
+          <h4>Register</h4>
+
+          <!-- Alerts -->
+          {% include 'partials/alerts.html' %}
+           s<form action="">  
+            <div class="form-group">
+               <label for="first_name">First Name</label>
+               <input type="text" name="first_name" pattern="^[A-Za-z][A-Za-z ]*$"  title="Name should  start with uppercase with no space">
+            </div>
+            <div class="form-group">
+               <label for="last_name">Last Name</label>
+               <input type="text" name="last_name"  pattern="^[A-Za-z][A-Za-z ]*$"  title="Name should not start with space">
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" name="username"  pattern="^[A-Za-z][A-Za-z ]*$"  title="Name should not start with space">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" name="email" placeholder="example@gmail.com" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone No</label>
+              <input type="tel" name="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Confirm</label>
+              <input type="password" name="password2" placeholder="Confirm Password" required>
+            </div>
+            <input type="submit" value="Register">
+         </form>
+        </form>
+      
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <form action="{% url 'registering' %}" method="POST" id="owner-registration-form" style="display: none;">
+      {% csrf_token %}
+      <h4>Register</h4>
+
+      <!-- Alerts -->
+      {% include 'partials/alerts.html' %} 
+      
+        <div class="form-group">
+          <label for="first_name">First Name</label>
+          <input type="text" name="first_name" pattern="^[A-Za-z][A-Za-z ]*$"  title="Name should  start with uppercase with no space">
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name</label>
+          <input type="text" name="last_name"  pattern="^[A-Za-z][A-Za-z ]*$"  title="Name should not start with space">
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username"  pattern="^[A-Za-z][A-Za-z ]*$"  title="Name should not start with space">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" placeholder="example@gmail.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone No</label>
+          <input type="tel" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="id_number">ID Number</label>
+          <input type="text" name="id_number" pattern="[0-9]{9}" required>
+        </div>
+        <div class="form-group">
+          <label for="photo">upload a photo</label>
+          <input type="file" name="photo" accept="images/*">
+        </div>
+        <div class="form-group">
+          <label for="is_mvp">Is MVP:</label>
+          <input type="checkbox" id="is_mvp" name="is_mvp" value="true"><br>
+        </div>
+        <div class="form-group">
+          <label for="hire_date">Hire Date:</label><br>
+          <input type="datetime-local" id="hire_date" name="hire_date"><br>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Confirm</label>
+          <input type="password" name="password2" placeholder="Confirm Password" required>
+        </div>
+        <input type="submit" value="Register">
+       
+     </form>
+  </div>
+
+</section>
+
+  
+  
+  
+{% endblock content %}       

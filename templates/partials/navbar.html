@@ -1,0 +1,301 @@
+<!-- {% load static %} -->
+<style>
+  nav {
+    /* background-color: #17a2b8; */
+    /* background-color: plum; */
+    height: 2.7rem;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background-color: black;
+    /* box-shadow: 5px 0px 20px blueviolet; */
+  }
+
+  #hamburger{
+    display: none;
+  }
+
+  nav li {
+    list-style-type: none;
+  }
+
+  nav li a{
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  nav li a:hover{
+    background-color: #fff;
+    color: #212121;
+  }
+
+  nav ul {
+    display: flex;
+    align-items: center;
+    height: 90%;
+    gap: 10px;
+    
+  }
+
+  .nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 20px;
+    border-radius: 5px;
+    transition: .3s;
+  }
+
+
+  .nav-link:hover {
+    color: #212121;
+    text-decoration: none;
+    background-color: #fff;
+  }
+  .active{
+    color: #212121;
+    background-color: #fff;
+  }
+  .logo{
+    margin-left: 10px;
+    width: 15%;
+    font-size: 20px;
+    font-weight: lighter;
+    color: #fff;
+    text-decoration: none;
+  }
+  nav .container{
+    width: 85%;
+    display: flex;
+    align-items: center;
+    height: 90%;
+  }
+
+  #navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+  }
+
+  nav .middle{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    gap: 1rem;
+
+  }
+
+  nav .end{
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    width: 20%;
+    margin-right: 100px;
+  }
+
+  ul li{
+    display: inline-block;
+    position: relative;
+  }
+
+  nav ul.dropdown{
+    /* margin-top: 1rem; */
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    padding: 5px;
+    display: block;
+    background-color: black;
+    color: #fff;
+    position: absolute;
+    z-index: 999;
+    display: none;
+  }
+
+  nav ul.dropdown li{
+    display: block;
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  nav .linkRegister:hover ul.dropdown{
+    display: block;
+  }
+
+  /* nav .dropdown{
+    margin-top: 1rem;
+    display: block;
+    font-size: 14px;
+  }
+  
+  nav .dropdown{
+    position: absolute;
+  }
+
+  nav .dropdown:hover{
+    display: block;
+  } */
+
+  @media (max-width:750px) {
+    nav{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #hamburger{
+      display: block;
+      height: fit-content;
+      position: absolute;      
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      top: 0;
+      right: 10px;     
+      z-index: 999;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    nav #hamburger .line{
+      width: 30px;
+      height: 2px;
+      background-color: #fff;
+    }
+
+    .container #navbar{
+      display: none;
+    }
+    nav .container{
+      transition: .5s  ease-out;
+      border-radius: 0 0 0 50%;
+      position: relative;
+    }
+
+    nav .shrinked{
+      display: flex;
+      width: 100%;
+      top: 2.7rem;
+      height: 100vh;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.959);
+      position: fixed;
+      z-index: 999;
+    }
+
+    .shrinked #navbar{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      width: 100%;
+    }
+
+    nav .shrinked .middle{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+      gap: 50px;
+      width: 100%;
+    }
+
+    nav .shrinked .end{
+      position: relative;
+      display: flex;
+      height: fit-content;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      gap: 50px;
+      width: 100%;
+    }
+
+    nav li a{
+      font-size: 18px;
+      font-weight: 300;
+      text-decoration: none;
+    }
+
+    nav ul.dropdown{
+      display: block;
+      background-color: #fff;
+      color: black;
+      position: absolute;
+      z-index: 999;
+      display: none;
+    }
+
+    nav ul.dropdown li a{
+      color: black;
+    }
+  }
+
+</style>
+<!-- Navbar -->
+<nav class="navbar">
+  <a class="logo" href="{% url 'index' %}">ComfortHomes</a>
+  <div id="hamburger">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+  <div class="container">
+    <div class="links" id="navbar">
+      <ul class="middle">
+        <li><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+        <li><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+        <li><a class="nav-link" href="{% url 'propertys' %}">Featured Properties</a></li>
+      </ul>
+
+      {% if user.is_authenticated %}
+      <ul class="end">
+        <li><a class="nav-link" id="welcome" href="{% url 'index' %}">Welcome {{ user.username }}</a></li>
+
+        <li class="nav-item mr-3">
+          <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link" id="Logout">Logout</a>
+          <form action="{% url 'logout' %}" method="POST" id="logout">
+            {% csrf_token %}
+            <input type="hidden">
+          </form>
+        </li>
+      </ul>
+
+      {% else %}
+      <ul class="end">
+        <li class="linkRegister"><a href="">Register</a>
+          <ul class="dropdown">
+            <li> <a href="{% url 'customer-signup' %}">Tenant</a></li>
+            <li><a href="{% url 'owner-signup' %}">Owner</a></li>
+          </ul>
+        </li>
+
+        <li><a href="{% url 'login' %}">Login</a>
+          <ul class="dropdown">
+            <li> <a href="{% url 'customer-signup' %}">Tenant</a></li>
+            <li><a href="{% url 'owner-signup' %}">Owner</a></li>
+          </ul>
+        </li>
+      </ul>
+      {% endif %}
+      
+
+    </div>
+  </div>
+  <script>
+    document.getElementById("hamburger").onclick = () =>{
+      document.querySelector("nav .container").classList.toggle('shrinked');
+    }
+  </script>
+</nav>

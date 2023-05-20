@@ -1,0 +1,68 @@
+ /* styles for section with dark blue background color */
+ section #about {
+    padding: 50px;
+    background-color: darkblue;
+    color: white;
+  }
+
+  section #about h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  section #about p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  section #about img {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* styles for team section */
+  section #team {
+    padding: 50px;
+  }
+
+  section #team h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  section #team .row {
+    margin-top: 30px;
+  }
+
+  section #team .col-md-4 {
+    margin-bottom: 30px;
+  }
+
+  section #team img {
+    max-width: 100%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+
+  section #team h4 {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  section #team hr {
+    margin: 30px auto;
+    width: 80%;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  section #team p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  section #team i {
+    margin-right: 10px;
+  }

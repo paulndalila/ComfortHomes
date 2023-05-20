@@ -1,0 +1,91 @@
+<style>
+    
+    .pop{
+        top: 0;
+        width: 100%;
+        height: 6vh;
+        position: relative;
+    }
+    .strong{
+        background-color: #10b336;
+    }
+    .alert {
+        top: 0;left: 0;
+        padding: 0;
+        margin-bottom: 0;
+        border-radius: 0.25rem;
+        font-weight: bold;
+        width: 100%;
+        height: 5vh;
+        background-color:transparent;
+        position: absolute;
+    }
+    .alert-success {
+        color: #155724;
+        background-color: #10b336;
+        border: 1px solid red;
+    }
+    .alert-info {
+        color: #0c5460;
+        background-color: blue;
+        border: 1px solid #b8daff;
+    }
+    .alert-warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+    }
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+    }
+    .close {
+        float: right;
+        font-size: 1.5rem;
+        font-weight: 100;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: 0.5;
+    }
+    .close:hover {
+        color: #000;
+        text-decoration: none;
+        opacity: 0.75;
+    }
+    
+</style>
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="pop">
+    <div id="message" class="container">
+      <div class="strong">
+         <div class="alert alert-{{  message.tags }} alert-dismissable text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    Error:
+                {% else %}
+                    {{ message.tags|title }}
+                {% endif %}
+            </strong>
+            {{ message }}
+         </div>
+     </div>
+    </div>
+</div>
+<script>
+    
+      $('#closeBtn{{ forloop.counter }}').on('click', function() {
+        $(this).closest('.alert').fadeOut();
+      });
+    
+  </script>
+{% endfor %}
+{% endif %}
+

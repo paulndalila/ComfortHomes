@@ -1,0 +1,586 @@
+{% extends 'base.html' %} 
+
+{% load humanize %}
+
+{% block title %} | Welcome{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- <link rel="stylesheet" href="{% static 'css/style.css' %}" /> -->
+
+<style>
+  
+/* index */
+
+section .container .home-search{
+    display: flex;
+    width: 100%;
+    padding: 20px 10px 10px 10px;
+    justify-content: space-between;
+    gap: 30px;
+    height: 100vh;
+    background-image: url("{% static 'images/im6.jpg' %}");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+  #showcase{
+    margin-top: 2.7rem;
+  }
+
+  .Intro{
+      width: 45%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+  
+  #showcase h1{
+      font-size: 52px;
+      font-family: 'Times New Roman', sans-serif;
+      text-align: center;
+      font-weight: bolder;
+  }
+  
+  #showcase p{
+    font-size: 18px;
+    font-weight: light;
+    padding: 20px 40px 20px 10px;
+  }
+  
+  #showcase .search{
+    width: 60%;
+    position: relative;
+    height: 70vh;
+    margin-left: 20px;
+  }
+  
+  #showcase form{
+    border: none;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;        
+    position: absolute;
+    gap: 10px;
+    bottom: 5px; 
+    right: 10%;
+    width: 70%;    
+    height: fit-content;
+    background-color: #fffffff8;
+  }
+
+  #showcase form::before{
+    content: "Searching for your dream home just got easy!";
+    font-style: italic;
+    font-size: 10px;
+    color: rgb(110, 110, 110);
+    padding-bottom: 10px;
+  }
+  
+  #showcase form button{
+    width: 30%;
+    height: 2rem;
+    border-radius: 5px;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 1s;
+    border: .5px solid #ccc;
+    /* background-color: #007bff; */
+    background-color: #3d3d3d;
+    padding: 5px 15px;
+      
+  }
+
+  #showcase .send:hover{
+    background-color: rgb(129, 44, 44);
+  }
+  
+  #showcase .form-row{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #showcase .dgrid{
+      display: flex;
+      align-items: center;
+  }
+  
+  #showcase .dgrid label{
+      width: 30%;
+  }
+
+  #showcase form input, select{
+    height: 1.5rem;
+    width: 70%;
+    border: 1px solid #ccc ;
+    outline: none;
+      
+  }
+    
+  #showcase form input{
+    padding-left: 10px;
+  }
+
+  #listings .text-center{
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Poppins', 'Times New Roman', Times, serif;
+  }
+
+  #listings .container {
+    width: 100%;
+    padding: 0 20px 20px 20px;
+  }
+  
+  #listings .Listings {
+    display: flex;
+    flex-wrap: wrap;
+   
+    /* justify-content: space-between; */
+    gap: 20px;
+    /* max-width: 800px; */
+    margin: auto;
+  }
+  
+  #listings .listing {
+    width: 32%;
+    margin-bottom: 30px;
+  }
+  
+  #listings .card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  #listings .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  #listings .card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  #listings .card-img-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  
+  #listings .card-img-overlay h2 {
+    margin: 0;
+  }
+  
+  #listings .badge {
+    font-size: 1.2rem;
+    font-weight: lighter;
+    color: #fff;
+  }
+  
+  #listings .card-body {
+    padding: 10px;
+  }
+  
+  #listings .listing-heading h4 {
+    margin: 0;
+  }
+  
+  #listings .listing-heading p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: light;
+    color: rgb(37, 36, 36);
+  }
+  
+  #listings .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  #listings .row p{
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  #listings .more-info-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: normal;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 5px;
+  }
+  
+  #listings .more-info-btn:hover {
+    background-color: #0069d9;
+  }
+  
+
+  #More-info {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+  }
+
+  #More-info .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  #More-info .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  #More-info div {
+    flex-basis: calc(33.33% - 30px);
+    margin-bottom: 30px;
+  }
+
+  #More-info h3 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  #More-info p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+  }
+
+  footer {
+    background-color: black;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1em;
+    width: 100%;
+    height: 1cm;
+    bottom: 9%;
+  }
+
+  footer p{
+    font-size: 10px;
+  }
+
+
+  @media (max-width:700px) {
+    #showcase h1{
+      font-size: 50px;
+      font-family: 'Poppins', 'Times New Roman', sans-serif;
+      text-align: left;
+    }
+
+    #showcase p{
+      font-size: 18px;
+      padding: 10px 25px;
+      text-align: center;
+      background-color: rgba(255, 192, 203, 0.795);
+      border-radius: 8px;
+      color: rgb(32, 32, 32);
+      animation: 3s bringParagraph forwards;
+    }
+
+    @keyframes bringParagraph {
+      0%{
+        margin-top: 80%;
+      }
+
+      100%{
+        margin-top: 5%;
+      }
+    }
+
+    #showcase p::before, #showcase p::after{
+      content: '"';
+      font-size: 30px;
+      color: brown;
+    }
+
+    section .container .home-search{
+      flex-direction: column;
+      padding: 0px;
+      justify-content: center;
+      gap: 10px;
+      height: 135vh;
+      background-position: bottom;
+    }
+
+    .Intro{
+      width: 100%;
+      height: 72%;
+      margin-right: 0;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+    }
+    
+
+    #showcase .search{
+      margin: 0;
+      width: 100%;
+      height: fit-content;
+      overflow: hidden;
+      background-color: #cccccc71;
+      /* border-bottom: 5px solid #cccccc71; */
+    }
+
+    #showcase form{
+      margin: 0;
+      border: none;
+      padding: 20px;
+      border-radius: 0;
+      flex-direction: column;        
+      position: relative;
+      gap: 10px; 
+      width: 100%;    
+      height: 100%;
+      top: 0;
+      right: 0;
+      background-color: #ffffff;
+    }
+
+    #showcase form::before{
+      content: "Click 'Search' to find your preffered home!";
+      padding-bottom: 8px;
+      color: gray;
+      font-size: 12px;
+    }
+
+    #More-info .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+    #More-info h3{
+      text-align: center;
+      font-size: 28px;
+      font-family: 'Poppins', 'Times New Roman', Times, serif;
+      margin-bottom: 10px;
+    }
+
+  #More-info p {
+    color: #2c2c2c;
+    padding: 5px 20px;
+    text-align: center;
+  }
+
+  #listings .container {
+    width: 100%;
+    padding: 5px;
+    background-color: #0069d9;
+
+  }
+  
+  #listings .Listings {
+    gap: 5px;
+  }
+  
+  #listings .listing {
+    width:49%;
+    margin-bottom: 10px;
+  }
+
+  #listings .card-img-top {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+
+  }
+</style>
+
+<section id="showcase" >
+  <div class="container" >
+    <div class="home-search">
+      <div class="Intro">
+        <h1 class="">Discover the comfort of finding your dream home with Comfort Homes!</h1>
+        <p>Welcome to ComfortHomes, the ultimate platform for property owners and tenants looking to connect with ease. Whether you're a landlord looking for trustworthy tenants or a tenant looking for your dream home, our system has got you covered.</p>
+      </div>
+
+      <div class="search">
+          <form action="{% url 'search' %}">
+            <!-- Form Row 1 -->
+            <div class="form-row">
+              <div class="dgrid">
+                <label class="sr-only">Keywords</label>
+                <input
+                  type="text"
+                  name="keywords"
+                  class="form-control"
+                  placeholder="Keyword (Pool, Garage, etc)"
+                />
+              </div>
+
+              <div class="dgrid">
+                <label class="sr-only">Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  class="form-control"
+                  placeholder="location"
+                />
+              </div>
+
+              <div class="dgrid">
+                <label class="sr-only">County</label>
+                <select name="state" class="form-control">
+                  <option selected="true" disabled="disabled">County (All)</option>
+                  {% for key,value in county_choices.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <!-- Form Row 2 -->
+            <div class="form-row">
+              <div class="dgrid">
+                <label class="sr-only">Bedrooms</label>
+                <select name="bedrooms" class="form-control">
+                    <option selected="true" disabled="disabled">Bedrooms (All)</option>
+                  {% for key,value in bedroom_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="dgrid">
+                <label class="">Price</label>
+                <select name="price" class="form-control" id="type">
+                  <option selected="true" disabled="disabled"
+                    >Max Price (Any)</option
+                  >
+                  {% for key,value in price_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <button class="send" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+<!-- Alerts -->
+{% include 'partials/alerts.html' %}
+
+<!-- Listings -->
+<section id="listings">
+  <div class="container">
+    <h3 class="text-center">Latest properties</h3>
+    <div class="Listings">
+      {% if propertys %}
+        {% for property in propertys %}
+        <div class="listing" id="listing1">
+            <div class="card">
+              <img class="card-img-top" src="{{property.photo_main.url }}" alt="" />
+              <div class="card-img-overlay">
+                <h2>
+                  <span class="badge badge-secondary text-white">Ksh.{{ property.price | intcomma}}</span>
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h4 class="text-primary">{{ property.title }}</h4>
+                  <p> {{ property.location }} {{ property.county }}</p>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-6">Sqft: {{ property.sqft }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Bedrooms: {{ property.bedrooms }}</div>
+                  <div class="col-6">Bathrooms: {{property.bathrooms }}</div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-6"> {{ property.owner }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6"> {{ property.list_date | timesince }}</div>
+                </div>
+                <hr />
+                <a href="{% url 'property' property.id %}" class="more-info-btn"
+                  >More Info</a
+                >
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-md-12">
+          <p>No properties available</p>
+        </div>
+      {% endif %}
+</section>
+
+<section id="More-info">
+  <div class="container">
+    <div class="row text-center">
+      <div>
+        <h3>Consulting Services</h3>
+        <hr />
+        <p>
+          Our management consulting services focus on our clients' most critical
+          issues and opportunities: strategy, marketing, organization, operations, technology,
+          transformation, digital, advanced analytics, corporate finance,
+          mergers & acquisitions and sustainability across all industries and geographies.
+        </p>
+      </div>
+      <div>
+        
+        <h3>Propery Management</h3>
+        <hr />
+        <p>
+          Property management is the daily oversight of residential,
+          commercial, or industrial real estate by a third-party contractor.
+          Generally, property managers take responsibility for day-to-day repairs and ongoing maintenance,
+          security, and upkeep of properties. They usually work for the owners of investment properties
+          such as apartment and condominium complexes, private home communities, shopping centers,
+          and industrial parks.
+        </p>
+      </div>
+      <div>
+        <h3>Renting & Selling</h3>
+        <hr />
+        <p>
+          Renting can provide some security because you know you can return to your home.
+          Selling a house and then buying another home incurs costs,
+          so it may be cheaper to rent out your house and move back in when you return
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <p>Maseno University &copy; 2023 Comfort Homes. All rights reserved.</p>
+</footer>
+{% endblock %}

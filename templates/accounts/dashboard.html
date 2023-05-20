@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %} | Dashboard{% endblock %}
+
+{% block content %}
+<style>
+ 
+    /* Custom CSS styles */
+  #dashboard-header {
+      margin-top: 2.7rem;
+      width: 100%;
+  }
+    
+    .breadcrumb{
+      display: flex;
+      align-items: baseline;
+      padding-left: 10px;
+      background-color: #ccc;
+      width: 100%;
+      padding-top: 10px;
+    }
+
+    #dashboard-content{
+      width: 100%;
+      padding: 20px;
+    }
+
+    .inquiries-section {
+        margin-top: 2rem;
+    }
+    .inquiries-section p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .inquiries-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    .inquiries-table th,
+    .inquiries-table td {
+        text-align: left;
+        padding: 1rem;
+        border-bottom: 1px solid #ccc;
+    }
+    .inquiries-table th {
+        font-weight: bold;
+    }
+    .inquiries-table td:first-child {
+        width: 10%;
+    }
+    .inquiries-table td:last-child {
+        text-align: right;
+    }
+img{
+  width: 50%;
+  height: 25%;
+}
+
+</style>
+<section id="dashboard-header" >
+  <div class="breadcrumb">
+    <h4>Owner Dashboard</h4>
+    <p>>> See Inquiries</p>
+  </div>
+  
+</section>
+
+<section id="dashboard-content">
+  <div class="container">
+    <div class="row">
+        <h2>Welcome {{ owner.username }}</h2>
+        {% if inquiries %}
+          <p>Here are the inquiries that have been made:</p>
+          <table class="inquiries-table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Property</th>
+                <th scope="col">Property name</th>
+                <th scope="col">Client</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">message</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if inquiries %}
+                {% for inquiry in inquiries %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                      <img src="{{ inquiry.property.photo_main.url }}" alt="Property main photo" width="50" height="75">
+                      <br>
+                     
+                    </td>
+                    <td>{{ inquiry.property.title }}</td>
+                    <td>{{ inquiry.name }}</td>
+                    <td>{{ inquiry.phone }}</td>
+                    <td>{{ inquiry.email }}</td>
+                    <td>{{ inquiry.message }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                  <tr>
+                    <td colspan="6">No inquiries have been made for your properties yet.</td>
+                  </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>No inquiries have been made </p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
